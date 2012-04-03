@@ -25,33 +25,24 @@ These are the views that control the debates.
 import json
 import datetime
 
-# Generic class-based views
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-
-# Decorators. the first is a wrapper to convert function-based decorators
-# to method decorators that can be put in subclass methods.
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, permission_required
-
-# Response types
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-
-# Some extras
 from django.contrib.auth.models import User, Group
 from django.contrib import messages
 from django.template import RequestContext
 from django.forms.formsets import formset_factory, BaseFormSet
 from django.core.exceptions import ObjectDoesNotExist
 
-# Application models
 from e_cidadania.apps.debate.models import Debate, Note, Row, Column
 from e_cidadania.apps.debate.forms import DebateForm, UpdateNoteForm, \
     NoteForm, RowForm, ColumnForm, UpdateNotePosition
-from e_cidadania.apps.spaces.models import Space
+from e_cidadania.apps.spaces.models.spaces import Space
 
 
 def add_new_debate(request, space_name):

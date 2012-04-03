@@ -31,7 +31,7 @@ from django.conf import settings
 
 from e_cidadania.apps.tagging.fields import TagField
 from e_cidadania.apps.tagging.models import Tag
-from e_cidadania.apps.spaces.models import Space
+from e_cidadania.apps.spaces.models.spaces import Space
 
 CLOSE_REASONS = (
     (1, _('Economically not viable')),

@@ -27,7 +27,9 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
 
-from e_cidadania.apps.spaces.models import Space, Entity, Document, Event
+from e_cidadania.apps.spaces.models.spaces import Space, Entity
+from e_cidadania.apps.spaces.models.documents import Document
+from e_cidadania.apps.spaces.models.events import Event
 
 class EntityAdmin(admin.ModelAdmin):
 

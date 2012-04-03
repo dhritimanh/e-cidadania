@@ -23,7 +23,8 @@ from django.utils.safestring import mark_safe
 from django.template import RequestContext
 from django.utils import translation
 
-from e_cidadania.apps.spaces.models import Event, Space
+from e_cidadania.apps.spaces.models.spaces import Space
+from e_cidadania.apps.spaces.models.events import Event
 from e_cidadania.apps.cal.models import EventCalendar
 from e_cidadania import settings
 

@@ -29,7 +29,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from e_cidadania.apps.tagging.fields import TagField
 from e_cidadania.apps.tagging.models import Tag
-from e_cidadania.apps.spaces.models import Space
+from e_cidadania.apps.spaces.models.spaces import Space
 
 class Debate(models.Model):
 

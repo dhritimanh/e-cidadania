@@ -25,7 +25,7 @@ from django.contrib.auth.models import User
 from e_cidadania.apps.tagging.fields import TagField
 from e_cidadania.apps.tagging.models import Tag
 
-from e_cidadania.apps.spaces.models import Space
+from e_cidadania.apps.spaces.models.spaces import Space
 
 class Post(models.Model):
 

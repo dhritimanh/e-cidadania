@@ -27,7 +27,9 @@ from the data models.
 from django.forms import ModelForm, ValidationError
 from django.forms.models import modelformset_factory
 
-from e_cidadania.apps.spaces.models import Space, Document, Event, Entity
+from e_cidadania.apps.spaces.models.spaces import Space, Entity
+from e_cidadania.apps.spaces.models.documents import Document
+from e_cidadania.apps.spaces.models.events import Event
 
 class SpaceForm(ModelForm):
     

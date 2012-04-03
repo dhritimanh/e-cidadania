@@ -41,7 +41,7 @@ from django.http import HttpResponse
 
 from e_cidadania.apps.proposals.models import Proposal
 from e_cidadania.apps.proposals.forms import ProposalForm, VoteProposal
-from e_cidadania.apps.spaces.models import Space
+from e_cidadania.apps.spaces.models.spaces import Space
 
 
 class AddProposal(FormView):

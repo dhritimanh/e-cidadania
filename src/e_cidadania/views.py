@@ -37,7 +37,7 @@ from django.utils.decorators import method_decorator
 
 from e_cidadania.apps.news.models import Post
 from e_cidadania.apps.news.forms import NewsForm
-from e_cidadania.apps.spaces.models import Space
+from e_cidadania.apps.spaces.models.spaces import Space
 from e_cidadania.apps.staticpages.models import StaticPage
 from e_cidadania import settings
 

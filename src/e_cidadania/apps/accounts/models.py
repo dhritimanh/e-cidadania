@@ -27,7 +27,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from e_cidadania.apps.userprofile.models import BaseProfile
-from e_cidadania.apps.spaces.models import Space
+from e_cidadania.apps.spaces.models.spaces import Space
 
 GENDER = (
 

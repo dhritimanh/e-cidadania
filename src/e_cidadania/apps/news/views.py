@@ -34,7 +34,7 @@ from django.views.generic.create_update import create_object
 from django.views.generic.create_update import update_object
 
 from django.contrib.auth.models import User
-from e_cidadania.apps.spaces.models import Space
+from e_cidadania.apps.spaces.models.spaces import Space
 from e_cidadania.apps.news.models import Post
 from e_cidadania.apps.news.forms import NewsForm
 

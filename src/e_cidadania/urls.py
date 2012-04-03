@@ -52,7 +52,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('e_cidadania.apps.userprofile.urls')),
 
     # Spaces
-    (r'^spaces/', include('e_cidadania.apps.spaces.urls')),
+    (r'^spaces/', include('e_cidadania.apps.spaces.urls.spaces')),
     
     # Invitations
     url(r'^invite/', 'e_cidadania.views.invite', name='invite'),

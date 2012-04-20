@@ -24,7 +24,7 @@ class LocationForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('location', 'latitude', 'longitude', 'country')
+        fields = ('location', 'latitude', 'longitude', 'country',)
 
 class ProfileForm(forms.ModelForm):
     """

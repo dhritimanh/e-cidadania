@@ -46,6 +46,7 @@ from django.contrib import messages
 from django.template import RequestContext
 from django.forms.formsets import formset_factory, BaseFormSet
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import ugettext_lazy as _
 
 # Application models
 from e_cidadania.apps.debate.models import Debate, Note, Row, Column
@@ -53,6 +54,8 @@ from e_cidadania.apps.debate.forms import DebateForm, UpdateNoteForm, \
     NoteForm, RowForm, ColumnForm, UpdateNotePosition
 from e_cidadania.apps.spaces.models import Space
 
+@login_required
+@permission_required('debate.add_debate')
 
 def add_new_debate(request, space_name):
 
@@ -201,7 +204,8 @@ def update_note(request, space_name):
         msg = "There was some error in the petition."
         
     return HttpResponse(msg)
-
+    
+    
 def update_position(request, space_name):
 
     """
@@ -251,6 +255,8 @@ class ViewDebate(DetailView):
     template_name = 'debate/debate_view.html'
 
     def get_object(self):
+        space_name = self.kwargs['space_name']
+        current_space = get_object_or_404(Space, url=space_name)
         debate = get_object_or_404(Debate, pk=self.kwargs['debate_id'])
         
         # Check debate dates
@@ -258,6 +264,27 @@ class ViewDebate(DetailView):
             self.template_name = 'debate/debate_outdated.html'
             #return Debate.objects.none()
         
+        if current_space.public == False:            
+            if self.request.user.is_anonymous():
+                messages.info(self.request, _("You're an anonymous user. \
+                              You must <a href=\"/accounts/register\">register</a> \
+                              or <a href=\"/accounts/login\">login</a> to access here."))
+                self.template_name = 'not_allowed.html'
+                return debate
+                
+            for i in self.request.user.profile.spaces.all():
+                if i.url == current_space:
+                    return debate
+                
+                messages.info(self.request, _("You're Not Registered to this space. \
+                              You must <a href=\"/accounts/register\">register</a> \
+                              or <a href=\"/accounts/login\">login</a> to access here."))
+                self.template_name = 'not_allowed.html'
+                return debate
+                  
+            if self.request.user.is_staff:
+                return debate
+                
         return debate
 
     def get_context_data(self, **kwargs):
@@ -294,13 +321,36 @@ class ListDebates(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        current_space = get_object_or_404(Space, url=self.kwargs['space_name'])
+        space_name = self.kwargs['space_name']
+        current_space = get_object_or_404(Space, url=space_name)
+        
         debates = Debate.objects.all().filter(space=current_space)
 
         # Here must go a validation so a user registered to the space
         # can always see the debate list. While an anonymous or not
         # registered user can't see anything unless the space is public
-
+        
+        if current_space.public == False:            
+            if self.request.user.is_anonymous():
+                messages.info(self.request, _("You're an anonymous user. \
+                              You must <a href=\"/accounts/register\">register</a> \
+                              or <a href=\"/accounts/login\">login</a> to access here."))
+                self.template_name = 'not_allowed.html'
+                return debates
+                
+            for i in self.request.user.profile.spaces.all():
+                if i.url == current_space:
+                    return debates
+                
+                messages.info(self.request, _("You're Not Registered to this space. \
+                              You must <a href=\"/accounts/register\">register</a> \
+                              or <a href=\"/accounts/login\">login</a> to access here."))
+                self.template_name = 'not_allowed.html'
+                return debates
+                  
+            if self.request.user.is_staff:
+                return debates
+                
         return debates
 
     def get_context_data(self, **kwargs):

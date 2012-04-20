@@ -276,6 +276,7 @@ class ViewSpaceIndex(DetailView):
 # (class-based view) since it manipulates two forms at the same time. Apparently
 # that creates some trouble in the django API. See this ticket:
 # https://code.djangoproject.com/ticket/16256
+@login_required
 @permission_required('spaces.edit_space')
 def edit_space(request, space_name):
 
